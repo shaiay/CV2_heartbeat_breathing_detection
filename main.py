@@ -20,7 +20,7 @@ def figure_to_tk(figure):
 class MainWindow:
     def __init__(self):
         self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-        self.update_interval_sec = 0.01
+        self.update_interval_sec = 0.001
         self.sampling_interval = 0.2
         layout = [
             [
@@ -62,7 +62,7 @@ class MainWindow:
             dt = time.time() - t0
             if dt < self.sampling_interval:
                 continue
-            print(f"Sampling interval accuracy: {(dt / self.sampling_interval - 1) * 100}%")
+            print(f"Sampling interval accuracy: {(dt / self.sampling_interval - 1) * 100:.0f}%")
             t0 = time.time()
 
             if event == sg.WIN_CLOSED:
