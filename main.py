@@ -11,7 +11,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasAgg
 from frame_processing_logic import Logic
 
 
-def draw_figure(figure):
+def figure_to_tk(figure):
     figure_canvas_agg = FigureCanvasAgg(figure)
     figure_canvas_agg.draw()
     return ImageTk.PhotoImage(Image.frombuffer('RGBA', (300, 300), figure_canvas_agg.buffer_rgba()))
@@ -53,7 +53,7 @@ class MainWindow:
         ax.set_xticklabels(bpm)
         ax.set_xlim(min(freq), max(freq))
         ax.grid()
-        return draw_figure(self.figure)
+        return figure_to_tk(self.figure)
 
     def run(self):
         t0 = time.time()
@@ -62,7 +62,7 @@ class MainWindow:
             dt = time.time() - t0
             if dt < self.sampling_interval:
                 continue
-            print(dt / self.sampling_interval)
+            print(f"Sampling interval accuracy: {(dt / self.sampling_interval - 1) * 100}%")
             t0 = time.time()
 
             if event == sg.WIN_CLOSED:
@@ -86,7 +86,7 @@ class MainWindow:
             self.figure.clf()
             ax = self.figure.add_subplot(111)
             ax.plot(self.logic.green_avg[-200:-1], 'g')
-            figure_avg = draw_figure(self.figure)
+            figure_avg = figure_to_tk(self.figure)
             self.window['green_avg'].TKCanvas.create_image(150, 150, image=figure_avg)
 
             if len(self.logic.green_avg) % 8 == 0:
