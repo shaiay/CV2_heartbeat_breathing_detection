@@ -1,11 +1,11 @@
 # CV2_heartbeat_breathing_detection
 A simple demo of human heartbeat and breathing detection using Opencv with a webcam
-
+Added a symple UI + specgram + heartrate estimation
 
 ## Installation:
 
-*Python > 3.5
-*opencv-python-4.5.1.48 in my case
+* Python > 3.5
+* `pip install -r requirements.txt`
 
 ## Execution:
 
